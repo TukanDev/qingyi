@@ -1,0 +1,20 @@
+{
+  "name": "qingyi",
+  "version": "1.0.0",
+  "description": "Discord app for your Hoyo data needs.",
+  "main": "qingyi.js",
+  "scripts": {
+    "start": "node qingyi.js",
+    "commands": "node deploy_commands.js"
+  },
+  "keywords": [],
+  "author": "https://tukandev.com",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "base64-js": "^1.5.1",
+    "discord.js": "^14.17.3",
+    "dotenv": "^16.4.7",
+    "google-protobuf": "^3.21.4",
+    "pg": "^8.13.1"
+  }
+}

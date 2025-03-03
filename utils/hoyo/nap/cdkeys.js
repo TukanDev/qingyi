@@ -1,0 +1,101 @@
+const {OS_PUB_OPERATIONS_NAP_API, OS_WEB_EXCHANGE_CD_KEY_HK4E_NAP,
+    OS_SG_PUB_API,
+    OS_SOL_NAP_SIGN,
+    OS_SOL_ACTS,
+    OS_SOL_NAP_INFO,
+    OS_SOL_NAP_HOME, OS_HOYOLAB_BBS_API, OS_CD_KEY_LIST
+} = require("../../../constants");
+const {translateRegion, parseCookiesToHeader} = require("../helpers");
+module.exports = {
+    async napWebExchangeCdKey(gameUid, region, cdKey, gameBiz, cookies) {
+        var ret = null;
+        try {
+            let rsp = await fetch(`${OS_PUB_OPERATIONS_NAP_API}/${OS_WEB_EXCHANGE_CD_KEY_HK4E_NAP}?uid=${gameUid}&region=${translateRegion(gameBiz, region)}&lang=en&cdkey=${cdKey}&game_biz=${gameBiz}`, {
+                method: 'GET',
+                credentials: "include",
+                headers: {'Cookie': parseCookiesToHeader(cookies)},
+            });
+
+            ret = await rsp.json();
+            return {body: ret};
+
+        } catch (e) {
+            console.error(e);
+            ret = null;
+        }
+        return ret;
+    },
+    async napLunaSign(cookies) {
+        var ret = null;
+        try {
+            let rsp = await fetch(`${OS_SG_PUB_API}/${OS_SOL_NAP_SIGN}?lang=en-us&act_id=${OS_SOL_ACTS.nap}`, {
+                method: 'POST',
+                credentials: "include",
+                headers: {'Cookie': parseCookiesToHeader(cookies), 'Accept-Language': "en-US,en;q=0.5", 'Referer': "https://act.hoyolab.com/", 'x-rpc-signgame': "zzz", 'x-rpc-client_type': 5, 'x-rpc-platform': 4},
+                body: JSON.stringify({act_id: `${OS_SOL_ACTS.nap}`, lang: 'en-us'}),
+            });
+
+            ret = await rsp.json();
+            return {body: ret};
+
+        } catch (e) {
+            console.error(e);
+            ret = null;
+        }
+        return ret;
+    },
+    async napLunaSignInfo(cookies) {
+        var ret = null;
+        try {
+            let rsp = await fetch(`${OS_SG_PUB_API}/${OS_SOL_NAP_INFO}?lang=en-us&act_id=${OS_SOL_ACTS.nap}`, {
+                method: 'GET',
+                credentials: "include",
+                headers: {'Cookie': parseCookiesToHeader(cookies), 'Referer': "https://act.hoyolab.com/", 'x-rpc-signgame': "zzz", 'x-rpc-client_type': 5, 'x-rpc-platform': 4}
+            });
+
+            ret = await rsp.json();
+            return {body: ret};
+
+        } catch (e) {
+            console.error(e);
+            ret = null;
+        }
+        return ret;
+    },
+    async napLunaSignHome(cookies) {
+        var ret = null;
+        try {
+            let rsp = await fetch(`${OS_SG_PUB_API}/${OS_SOL_NAP_HOME}?lang=en-us&act_id=${OS_SOL_ACTS.nap}`, {
+                method: 'GET',
+                credentials: "include",
+                headers: {'Cookie': parseCookiesToHeader(cookies), 'Referer': "https://act.hoyolab.com/", 'x-rpc-signgame': "zzz", 'x-rpc-client_type': 5, 'x-rpc-platform': 4}
+            });
+
+            ret = await rsp.json();
+            return {body: ret};
+
+        } catch (e) {
+            console.error(e);
+            ret = null;
+        }
+        return ret;
+    },
+    async napListCdKeys(cookies) {
+        var ret = null;
+        try {
+            let rsp = await fetch(`${OS_HOYOLAB_BBS_API}/${OS_CD_KEY_LIST}?game_id=8`, {
+                method: 'GET',
+                credentials: "include",
+                headers: {'Cookie': parseCookiesToHeader(cookies), 'x-rpc-client_type': 5, 'x-rpc-platform': 4},
+            });
+
+            ret = await rsp.json();
+            return {body: ret};
+
+        } catch (e) {
+            console.error(e);
+            ret = null;
+        }
+        return ret;
+    },
+}
